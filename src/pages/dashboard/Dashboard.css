@@ -1,0 +1,252 @@
+.dashboard {
+    animation: fadeIn 0.3s ease;
+}
+
+.dashboard-greeting {
+    margin-bottom: 4px;
+}
+
+.greeting-text {
+    font-size: 1rem;
+    color: var(--text-secondary);
+}
+
+.greeting-name {
+    font-size: 1.75rem;
+    font-weight: 700;
+    margin-top: 4px;
+    background: linear-gradient(135deg, #E91E63, #9C27B0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.dashboard-date {
+    font-size: 0.875rem;
+    color: var(--text-tertiary);
+    margin-top: 4px;
+}
+
+/* Quote Card */
+.quote-card {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: linear-gradient(135deg,
+            rgba(233, 30, 99, 0.15) 0%,
+            rgba(156, 39, 176, 0.1) 100%);
+    border: 1px solid rgba(233, 30, 99, 0.2);
+    border-radius: 16px;
+    margin-bottom: 24px;
+    animation: fadeInUp 0.4s ease forwards;
+}
+
+.quote-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+}
+
+.quote-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+/* Progress Card */
+.progress-card {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    padding: 24px;
+    background: linear-gradient(135deg,
+            rgba(255, 255, 255, 0.05) 0%,
+            rgba(255, 255, 255, 0.02) 100%);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    animation: fadeInUp 0.4s ease forwards;
+    animation-delay: 0.1s;
+    opacity: 0;
+}
+
+.progress-inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.progress-count {
+    font-size: 1.75rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, #E91E63, #9C27B0);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.progress-label {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+}
+
+.progress-stats {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.stat-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.stat-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+.stat-icon.fire {
+    background: linear-gradient(135deg, #FF416C, #FF4B2B);
+}
+
+.stat-icon.heart {
+    background: linear-gradient(135deg, #E91E63, #9C27B0);
+}
+
+.stat-icon.trophy {
+    background: linear-gradient(135deg, #FFD700, #FFA500);
+}
+
+.stat-content {
+    display: flex;
+    flex-direction: column;
+}
+
+.stat-value {
+    font-size: 1.125rem;
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: var(--text-tertiary);
+}
+
+/* Section */
+.dashboard-section {
+    margin-bottom: 24px;
+}
+
+.section-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    margin-bottom: 16px;
+    color: var(--text-primary);
+}
+
+.section-badge {
+    padding: 2px 8px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.section-badge.success {
+    background: rgba(76, 175, 80, 0.2);
+    color: var(--success-light);
+}
+
+/* Habits List */
+.habits-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Empty State */
+.empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 48px 24px;
+    animation: fadeInUp 0.4s ease forwards;
+}
+
+.empty-icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    animation: heartbeat 1.5s ease-in-out infinite;
+}
+
+.empty-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: var(--text-primary);
+}
+
+.empty-text {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    max-width: 280px;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes heartbeat {
+
+    0%,
+    100% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.1);
+    }
+
+    35% {
+        transform: scale(1);
+    }
+
+    45% {
+        transform: scale(1.15);
+    }
+
+    55% {
+        transform: scale(1);
+    }
+}

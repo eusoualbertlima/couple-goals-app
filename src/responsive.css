@@ -1,0 +1,325 @@
+/* ============================================
+   MOBILE RESPONSIVE STYLES
+   Mobile-first responsive design for all screen sizes
+   ============================================ */
+
+/* ============================================
+   BASE MOBILE ADJUSTMENTS
+   ============================================ */
+
+/* Mobile - Extra Small Devices (< 375px) */
+@media (max-width: 374px) {
+    html {
+        font-size: 14px;
+    }
+
+    .container {
+        padding: 0 var(--space-sm);
+    }
+
+    .page-title {
+        font-size: 1.5rem !important;
+    }
+
+    .btn {
+        padding: var(--space-sm) var(--space-md);
+        font-size: var(--font-size-sm);
+    }
+}
+
+/* Mobile - Small Devices (375px - 639px) */
+@media (max-width: 639px) {
+
+    /* Reduce padding on mobile */
+    .page {
+        padding: var(--space-md);
+    }
+
+    .page-header {
+        padding: var(--space-md) 0;
+        margin-bottom: var(--space-md);
+    }
+
+    .page-title {
+        font-size: 1.75rem !important;
+    }
+
+    .page-subtitle {
+        font-size: var(--font-size-sm) !important;
+    }
+
+    /* Stack grids on mobile */
+    .stats-row,
+    .grid-cols-2,
+    .grid-cols-3 {
+        grid-template-columns: 1fr !important;
+        gap: var(--space-sm) !important;
+    }
+
+    /* Make cards more compact */
+    .glass-card,
+    .stat-card,
+    .weight-card {
+        padding: var(--space-md) !important;
+    }
+
+    /* Adjust button sizes */
+    .btn-lg {
+        padding: var(--space-md) var(--space-lg);
+        font-size: var(--font-size-base);
+    }
+
+    /* Habit cards */
+    .habit-card {
+        padding: var(--space-md) !important;
+    }
+
+    .habit-card-header {
+        gap: var(--space-sm) !important;
+    }
+
+    /* Dashboard adjustments */
+    .dashboard-greeting {
+        font-size: 1rem !important;
+    }
+
+    .greeting-name {
+        font-size: 1.75rem !important;
+    }
+
+    .quote-card {
+        padding: var(--space-lg) !important;
+        margin-bottom: var(--space-md) !important;
+    }
+
+    /* Fitness page */
+    .weight-card {
+        padding: var(--space-lg) !important;
+    }
+
+    .weight-value {
+        font-size: 2rem !important;
+    }
+
+    .chart-container {
+        height: 200px !important;
+    }
+
+    /* Sleep page */
+    .sleep-card {
+        padding: var(--space-md) !important;
+    }
+
+    .sleep-duration {
+        font-size: 1.75rem !important;
+    }
+
+    /* Profile page */
+    .profile-card {
+        padding: var(--space-lg) !important;
+    }
+
+    .profile-stats {
+        grid-template-columns: repeat(3, 1fr) !important;
+        gap: var(--space-sm) !important;
+    }
+
+    .settings-list {
+        gap: var(--space-xs) !important;
+    }
+
+    /* Onboarding */
+    .onboarding-step {
+        padding: var(--space-xl) var(--space-md) !important;
+    }
+
+    .goals-grid,
+    .habits-grid {
+        grid-template-columns: 1fr !important;
+        gap: var(--space-sm) !important;
+    }
+
+    /* Form elements */
+    .input,
+    .name-input {
+        font-size: var(--font-size-base);
+        padding: var(--space-md);
+    }
+
+    /* Modal/Dialog */
+    .modal-content {
+        width: 95% !important;
+        margin: var(--space-md) !important;
+        max-height: 90vh !important;
+    }
+
+    /* Tab bar is already optimized */
+    .tab-bar {
+        padding: 0 var(--space-xs);
+    }
+
+    .tab-item {
+        padding: var(--space-sm) var(--space-xs);
+        min-width: 56px;
+    }
+
+    .tab-label {
+        font-size: 9px;
+    }
+}
+
+/* Tablet - Medium Devices (640px - 1024px) */
+@media (min-width: 640px) and (max-width: 1024px) {
+
+    .container {
+        max-width: 640px;
+    }
+
+    .stats-row {
+        grid-template-columns: repeat(3, 1fr);
+    }
+
+    .goals-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .habits-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+
+    .profile-stats {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+/* Desktop - Large Devices (> 1024px) */
+@media (min-width: 1025px) {
+
+    .container {
+        max-width: 480px;
+    }
+
+    /* Center the app on desktop */
+    .app {
+        max-width: 480px;
+        margin: 0 auto;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.2);
+    }
+}
+
+/* ============================================
+   LANDSCAPE ORIENTATION FIXES
+   ============================================ */
+
+/* Mobile landscape */
+@media (max-height: 500px) and (orientation: landscape) {
+
+    .page {
+        padding: var(--space-sm);
+    }
+
+    .page-header {
+        padding: var(--space-sm) 0;
+        margin-bottom: var(--space-sm);
+    }
+
+    .page-title {
+        font-size: 1.25rem !important;
+    }
+
+    .tab-bar {
+        height: 56px;
+    }
+
+    .tab-label {
+        display: none;
+    }
+
+    .tab-item {
+        padding: var(--space-sm);
+    }
+
+    .onboarding-step {
+        padding: var(--space-lg) var(--space-md) !important;
+    }
+
+    .onboarding-step h1 {
+        font-size: 1.5rem !important;
+    }
+
+    .onboarding-step h2 {
+        font-size: 1.25rem !important;
+    }
+}
+
+/* ============================================
+   TOUCH TARGET OPTIMIZATION
+   ============================================ */
+
+@media (hover: none) and (pointer: coarse) {
+
+    /* Increase touch targets on touch devices */
+    .btn {
+        min-height: 44px;
+    }
+
+    .btn-icon {
+        width: 44px;
+        height: 44px;
+    }
+
+    .tab-item {
+        min-height: 48px;
+    }
+
+    .checkbox,
+    .toggle {
+        min-width: 44px;
+        min-height: 44px;
+    }
+
+    /* Remove hover effects on touch */
+    .btn:hover::after,
+    .glass-card:hover,
+    .habit-card:hover {
+        background: inherit;
+        transform: none;
+    }
+}
+
+/* ============================================
+   SAFE AREA SUPPORT (iPhone X+)
+   ============================================ */
+
+@supports (padding: env(safe-area-inset-bottom)) {
+
+    .page {
+        padding-bottom: calc(72px + env(safe-area-inset-bottom));
+    }
+
+    .tab-bar {
+        padding-bottom: env(safe-area-inset-bottom);
+    }
+}
+
+/* ============================================
+   PRINT STYLES
+   ============================================ */
+
+@media print {
+
+    .tab-bar,
+    .btn,
+    button {
+        display: none !important;
+    }
+
+    .page {
+        padding: 0;
+    }
+
+    * {
+        background: white !important;
+        color: black !important;
+    }
+}

@@ -179,12 +179,12 @@ export const BADGES = [
 
 // Motivational quotes
 export const QUOTES = [
-    "Juntos somos mais fortes 💪",
-    "Pequenos passos, grandes conquistas 🎯",
-    "O amor se constrói a cada dia 💕",
-    "Vocês são um time imbatível! 🏆",
-    "Consistência é a chave do sucesso 🔑",
-    "Celebrem cada vitória juntos 🎉",
-    "O progresso é mais importante que a perfeição ✨",
-    "Cada dia é uma nova oportunidade 🌅"
+    "Juntos somos mais fortes",
+    "Pequenos passos, grandes conquistas",
+    "O amor se constrói a cada dia",
+    "Vocês são um time imbatível!",
+    "Consistência é a chave do sucesso",
+    "Celebrem cada vitória juntos",
+    "O progresso é mais importante que a perfeição",
+    "Cada dia é uma nova oportunidade"
 ]

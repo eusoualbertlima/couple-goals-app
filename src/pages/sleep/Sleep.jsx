@@ -86,7 +86,7 @@ export function Sleep() {
         <div className="page sleep-page">
             <div className="page-header">
                 <div>
-                    <h1 className="page-title">Sono 😴</h1>
+                    <h1 className="page-title">Sono</h1>
                     <p className="page-subtitle">Monitore sua qualidade de sono</p>
                 </div>
             </div>
@@ -128,7 +128,7 @@ export function Sleep() {
                     <div className="stat-card">
                         <span className="stat-label">Qualidade</span>
                         <span className="stat-value">
-                            {avgQuality > 0 ? `${avgQuality.toFixed(1)} ⭐` : '--'}
+                            {avgQuality > 0 ? avgQuality.toFixed(1) : '--'}
                         </span>
                     </div>
                     <div className="stat-card">

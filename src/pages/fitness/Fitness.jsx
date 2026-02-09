@@ -54,7 +54,7 @@ export function Fitness() {
         <div className="page fitness-page">
             <div className="page-header">
                 <div>
-                    <h1 className="page-title">Fitness 💪</h1>
+                    <h1 className="page-title">Fitness</h1>
                     <p className="page-subtitle">Acompanhe seu progresso</p>
                 </div>
             </div>

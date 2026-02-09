@@ -134,7 +134,7 @@ export function Profile() {
                 {/* Couple Link */}
                 {!partner && (
                     <section className="couple-section">
-                        <h3 className="section-title">💕 Conectar Parceiro(a)</h3>
+                        <h3 className="section-title">Conectar Parceiro(a)</h3>
                         <p className="section-text">
                             Conecte sua conta com seu parceiro(a) para compartilhar hábitos e acompanhar o progresso juntos.
                         </p>
@@ -148,7 +148,7 @@ export function Profile() {
                 {/* Version Info */}
                 <div className="app-info">
                     <p>Couple Goals v1.0.0</p>
-                    <p>Feito com 💕 para casais</p>
+                    <p>Feito para casais</p>
                 </div>
             </div>
         </div>

@@ -17,12 +17,12 @@ export function Onboarding({ onComplete }) {
     const { addHabit } = useHabits()
 
     const goals = [
-        { id: 'health', label: 'Melhorar a saúde', icon: '💪' },
-        { id: 'relationship', label: 'Fortalecer relacionamento', icon: '💕' },
-        { id: 'productivity', label: 'Ser mais produtivo', icon: '🎯' },
-        { id: 'mindfulness', label: 'Mais paz mental', icon: '🧘' },
-        { id: 'finance', label: 'Organizar finanças', icon: '💰' },
-        { id: 'learning', label: 'Aprender mais', icon: '📚' }
+        { id: 'health', label: 'Melhorar a saúde' },
+        { id: 'relationship', label: 'Fortalecer relacionamento' },
+        { id: 'productivity', label: 'Ser mais produtivo' },
+        { id: 'mindfulness', label: 'Mais paz mental' },
+        { id: 'finance', label: 'Organizar finanças' },
+        { id: 'learning', label: 'Aprender mais' }
     ]
 
     const toggleGoal = (goalId) => {
@@ -86,7 +86,6 @@ export function Onboarding({ onComplete }) {
             case 'name':
                 return (
                     <div className="onboarding-step">
-                        <span className="step-emoji">👋</span>
                         <h2>Como podemos te chamar?</h2>
                         <p>Isso vai personalizar sua experiência</p>
                         <input
@@ -111,7 +110,6 @@ export function Onboarding({ onComplete }) {
             case 'goals':
                 return (
                     <div className="onboarding-step">
-                        <span className="step-emoji">🎯</span>
                         <h2>Quais são seus objetivos?</h2>
                         <p>Selecione suas principais metas</p>
                         <div className="goals-grid">
@@ -121,7 +119,6 @@ export function Onboarding({ onComplete }) {
                                     className={`goal-card ${selectedGoals.includes(goal.id) ? 'selected' : ''}`}
                                     onClick={() => toggleGoal(goal.id)}
                                 >
-                                    <span className="goal-icon">{goal.icon}</span>
                                     <span className="goal-label">{goal.label}</span>
                                     {selectedGoals.includes(goal.id) && (
                                         <Check size={18} className="goal-check" />
@@ -142,7 +139,6 @@ export function Onboarding({ onComplete }) {
             case 'habits':
                 return (
                     <div className="onboarding-step">
-                        <span className="step-emoji">✨</span>
                         <h2>Escolha seus primeiros hábitos</h2>
                         <p>Você pode adicionar mais depois</p>
                         <div className="habits-grid">
@@ -176,7 +172,7 @@ export function Onboarding({ onComplete }) {
                         <div className="complete-icon">
                             <Sparkles size={64} />
                         </div>
-                        <h1>Tudo pronto, {name || 'Amor'}! 🎉</h1>
+                        <h1>Tudo pronto, {name || 'Amor'}!</h1>
                         <p>
                             Sua jornada de hábitos começa agora.
                             {selectedHabits.length > 0 && ` Adicionamos ${selectedHabits.length} hábitos para você começar.`}

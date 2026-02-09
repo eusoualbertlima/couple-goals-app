@@ -34,7 +34,7 @@ export function Dashboard() {
             <div className="page-header">
                 <div className="dashboard-greeting">
                     <span className="greeting-text">{getGreeting()},</span>
-                    <h1 className="greeting-name">{user?.name || 'Amor'} 💕</h1>
+                    <h1 className="greeting-name">{user?.name || 'Amor'}</h1>
                 </div>
                 <div className="dashboard-date">{formatDateReadable(getToday())}</div>
             </div>
@@ -42,7 +42,6 @@ export function Dashboard() {
             <div className="page-content">
                 {/* Quote Card */}
                 <div className="quote-card">
-                    <span className="quote-icon">✨</span>
                     <p className="quote-text">{randomQuote}</p>
                 </div>
 
@@ -115,7 +114,7 @@ export function Dashboard() {
                 {completedHabits.length > 0 && (
                     <section className="dashboard-section">
                         <h2 className="section-title">
-                            Concluídos 🎉
+                            Concluídos
                             <span className="section-badge success">{completedHabits.length}</span>
                         </h2>
                         <div className="habits-list">
@@ -135,7 +134,6 @@ export function Dashboard() {
                 {/* Empty State */}
                 {habits.length === 0 && (
                     <div className="empty-state">
-                        <div className="empty-icon">💕</div>
                         <h3 className="empty-title">Comece sua jornada juntos!</h3>
                         <p className="empty-text">
                             Adicione seu primeiro hábito e comecem a construir uma vida mais saudável como casal.

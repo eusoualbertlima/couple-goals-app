@@ -106,7 +106,7 @@ export const DEFAULT_HABITS = [
     {
         name: 'Caminhar 30 minutos',
         category: 'fitness',
-        icon: 'Footprints',
+        icon: '🚶',
         frequency: 'daily'
     },
     {

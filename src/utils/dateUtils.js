@@ -126,10 +126,6 @@ export function calculateStreak(completions) {
     let currentDate = sortedDates[0]
 
     for (let i = 1; i < sortedDates.length; i++) {
-        const expectedPrev = getDaysAgo(
-            Math.round((new Date(currentDate) - new Date(sortedDates[0])) / (1000 * 60 * 60 * 24)) + 1
-        )
-
         if (sortedDates[i] === getDayBefore(currentDate)) {
             streak++
             currentDate = sortedDates[i]

@@ -1,0 +1,134 @@
+/* ============================================
+   COUPLE GOALS - DESIGN SYSTEM
+   Premium Dark/Light Mode with Love Theme
+   ============================================ */
+
+/* ============================================
+   CSS VARIABLES - DARK THEME (DEFAULT)
+   ============================================ */
+:root,
+body[data-theme="dark"] {
+  /* Primary Colors - Love Theme */
+  --primary: #E91E63;
+  --primary-light: #F48FB1;
+  --primary-dark: #C2185B;
+  --secondary: #9C27B0;
+  --secondary-light: #CE93D8;
+  --accent: #FF6B6B;
+  --accent-coral: #FF8E53;
+
+  /* Background & Surface */
+  --background: #0D0D0D;
+  --background-elevated: #121218;
+  --surface: #1A1A2E;
+  --surface-light: #252542;
+  --surface-border: rgba(255, 255, 255, 0.08);
+
+  /* Text Colors */
+  --text-primary: #FFFFFF;
+  --text-secondary: rgba(255, 255, 255, 0.7);
+  --text-tertiary: rgba(255, 255, 255, 0.5);
+  --text-muted: rgba(255, 255, 255, 0.3);
+
+  /* Status Colors */
+  --success: #4CAF50;
+  --success-light: #81C784;
+  --warning: #FF9800;
+  --warning-light: #FFB74D;
+  --error: #F44336;
+  --error-light: #EF9A9A;
+  --info: #2196F3;
+
+  /* Gradients */
+  --gradient-love: linear-gradient(135deg, #E91E63 0%, #9C27B0 100%);
+  --gradient-sunset: linear-gradient(135deg, #FF6B6B 0%, #FF8E53 100%);
+  --gradient-fire: linear-gradient(135deg, #FF416C 0%, #FF4B2B 100%);
+  --gradient-ocean: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --gradient-surface: linear-gradient(180deg,rgba(255,255,255,0.05) 0%, transparent 100%);
+
+  /* Category Colors */
+  --cat-health: #4CAF50;
+  --cat-fitness: #FF5722;
+  --cat-mindfulness: #9C27B0;
+  --cat-productivity: #2196F3;
+  --cat-relationship: #E91E63;
+  --cat-finance: #FFC107;
+  --cat-learning: #00BCD4;
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --shadow-glow: 0 0 20px rgba(233, 30, 99, 0.4);
+  --shadow-glow-strong: 0 0 40px rgba(233, 30, 99, 0.6);
+}
+
+/* ============================================
+   CSS VARIABLES - LIGHT THEME
+   ============================================ */
+body[data-theme="light"] {
+  /* Background & Surface */
+  --background: #F5F5F5;
+  --background-elevated: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-light: #F8F8F8;
+  --surface-border: rgba(0, 0, 0, 0.08);
+
+  /* Text Colors */
+  --text-primary: #1A1A1A;
+  --text-secondary: rgba(0, 0, 0, 0.7);
+  --text-tertiary: rgba(0, 0, 0, 0.5);
+  --text-muted: rgba(0, 0, 0, 0.3);
+
+  /* Shadows */
+  --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.08);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.12);
+  --shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.16);
+  --shadow-glow: 0 0 20px rgba(233, 30, 99, 0.2);
+  --shadow-glow-strong: 0 0 40px rgba(233, 30, 99, 0.3);
+
+  /* Gradient adjustments */
+  --gradient-surface: linear-gradient(180deg, rgba(0,0,0,0.02) 0%, transparent 100%);
+}
+
+/* Shared variables (same for both themes) */
+:root {
+  /* Spacing */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-2xl: 48px;
+  --space-3xl: 64px;
+
+  /* Border Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 24px;
+  --radius-full: 9999px;
+
+  /* Typography */
+  --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 2rem;
+  --font-size-4xl: 2.5rem;
+
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-base: 250ms ease;
+  --transition-slow: 400ms ease;
+  --transition-spring: 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+  /* Z-Index */
+  --z-base: 1;
+  --z-dropdown: 100;
+  --z-modal: 500;
+  --z-toast: 1000;
+}

@@ -11,7 +11,7 @@ import { Onboarding } from './pages/onboarding/Onboarding'
 
 function AppContent() {
     const [activeTab, setActiveTab] = useState('home')
-    const { user, isUserSetup } = useUser()
+    const { user, isUserSetup, settings } = useUser()
     const [showOnboarding, setShowOnboarding] = useState(false)
 
     useEffect(() => {
@@ -19,6 +19,11 @@ function AppContent() {
             setShowOnboarding(true)
         }
     }, [isUserSetup])
+
+    // Apply theme to body
+    useEffect(() => {
+        document.body.setAttribute('data-theme', settings.theme || 'dark')
+    }, [settings.theme])
 
     const handleOnboardingComplete = () => {
         setShowOnboarding(false)

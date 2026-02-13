@@ -1,26 +1,27 @@
 {
-    "name": "couple-goals-app",
-    "private": true,
-    "version": "1.0.0",
-    "type": "module",
-    "scripts": {
-        "dev": "vite",
-        "build": "vite build",
-        "lint": "eslint .",
-        "preview": "vite preview"
-    },
-    "dependencies": {
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1",
-        "react-router-dom": "^6.22.0",
-        "recharts": "^2.12.0",
-        "framer-motion": "^11.0.0",
-        "lucide-react": "^0.330.0"
-    },
-    "devDependencies": {
-        "@types/react": "^18.3.1",
-        "@types/react-dom": "^18.3.0",
-        "@vitejs/plugin-react": "^4.3.0",
-        "vite": "^5.4.0"
-    }
+  "name": "couple-evolution-platform",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Premium SaaS platform for couple habit evolution",
+  "workspaces": [
+    "apps/web",
+    "apps/api",
+    "packages/shared"
+  ],
+  "scripts": {
+    "dev:web": "npm run dev --workspace @couple-evolution/web",
+    "dev:api": "npm run start:dev --workspace @couple-evolution/api",
+    "dev": "concurrently \"npm run dev:web\" \"npm run dev:api\"",
+    "build:web": "npm run build --workspace @couple-evolution/web",
+    "build:api": "npm run build --workspace @couple-evolution/api",
+    "build": "npm run build:web; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; npm run build:api",
+    "lint:web": "npm run lint --workspace @couple-evolution/web",
+    "lint:api": "npm run lint --workspace @couple-evolution/api",
+    "lint": "npm run lint:web; if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }; npm run lint:api",
+    "prisma:generate": "npm run prisma:generate --workspace @couple-evolution/api",
+    "prisma:migrate": "npm run prisma:migrate --workspace @couple-evolution/api"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  }
 }

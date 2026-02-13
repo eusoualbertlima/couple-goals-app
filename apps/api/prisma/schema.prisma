@@ -1,0 +1,474 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum AuthProvider {
+  EMAIL
+  GOOGLE
+  APPLE
+}
+
+enum HabitCategory {
+  SAUDE
+  PRODUTIVIDADE
+}
+
+enum HabitFrequency {
+  DIARIO
+  SEMANAL
+  PERSONALIZADO
+}
+
+enum HabitVisibility {
+  PRIVADO
+  COMPARTILHADO
+}
+
+enum GoalScope {
+  SEMANAL
+  MENSAL
+  ANUAL
+}
+
+enum EventType {
+  HabitCompleted
+  StreakBroken
+  CoupleGoalCompleted
+  WeeklyCheckinCompleted
+  LevelUnlocked
+}
+
+enum NotificationType {
+  STREAK_RISK
+  NEAR_GOAL
+  POSITIVE_FEEDBACK
+  WEEKLY_CHECKIN_REMINDER
+}
+
+enum CoupleLevel {
+  INICIANTES
+  CONSTANTES
+  EVOLUINDO
+  DISCIPLINADOS
+  MESTRES_DA_CONSTANCIA
+}
+
+enum ThemeMode {
+  LIGHT
+  DARK
+  MINIMAL_LIGHT
+  MINIMAL_DARK
+}
+
+enum StoreItemCategory {
+  FOLHA
+  TRONCO
+  FUNDO
+  ESTACAO
+  LUZ
+  CRIATURA
+}
+
+model User {
+  id                      String            @id @default(uuid())
+  email                   String            @unique
+  passwordHash            String?
+  provider                AuthProvider      @default(EMAIL)
+  providerUserId          String?
+  displayName             String
+  timezone                String            @default("America/Sao_Paulo")
+  theme                   ThemeMode         @default(DARK)
+  motivationCardsEnabled  Boolean           @default(true)
+  lastLoginAt             DateTime?
+  createdAt               DateTime          @default(now())
+  updatedAt               DateTime          @updatedAt
+  memberships             CoupleMember[]
+  ownedHabits             Habit[]           @relation("HabitOwner")
+  habitCompletions        HabitCompletion[]
+  ownedGoals              Goal[]            @relation("GoalOwner")
+  streaks                 UserStreak[]
+  recoveries              StreakRecovery[]
+  weeklyCheckinsCompleted WeeklyCheckin[]   @relation("CheckinCompletedBy")
+  refreshTokens           RefreshToken[]
+  authAttempts            AuthAttempt[]
+  notifications           Notification[]
+  auditLogs               AuditLog[]
+  events                  Event[]           @relation("EventActor")
+  authIdentities          AuthIdentity[]
+}
+
+model AuthIdentity {
+  id                String       @id @default(uuid())
+  userId            String
+  provider          AuthProvider
+  providerAccountId String
+  accessToken       String?
+  refreshToken      String?
+  createdAt         DateTime     @default(now())
+  updatedAt         DateTime     @updatedAt
+  user              User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Couple {
+  id             String              @id @default(uuid())
+  displayName    String
+  objective      String
+  weeklyCommitment Int
+  createdAt      DateTime            @default(now())
+  updatedAt      DateTime            @updatedAt
+  members        CoupleMember[]
+  manifesto      ManifestoContract?
+  habits         Habit[]
+  habitCompletions HabitCompletion[]
+  goals          Goal[]
+  userStreaks    UserStreak[]
+  streak         CoupleStreak?
+  levelProgress  CoupleLevelProgress?
+  treeState      TreeState?
+  treeUnlocks    TreeUnlock[]
+  weeklyCheckins WeeklyCheckin[]
+  events         Event[]
+  notifications  Notification[]
+  storeUnlocks   StoreUnlock[]
+  analytics      AnalyticsSnapshot[]
+  recoveries     StreakRecovery[]
+}
+
+model CoupleMember {
+  id        String   @id @default(uuid())
+  coupleId  String
+  userId    String
+  role      String   @default("MEMBER")
+  joinedAt  DateTime @default(now())
+  couple    Couple   @relation(fields: [coupleId], references: [id], onDelete: Cascade)
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([coupleId, userId])
+  @@index([userId, joinedAt])
+}
+
+model ManifestoContract {
+  id                String   @id @default(uuid())
+  coupleId          String   @unique
+  mainObjective     String
+  pillarOne         String
+  pillarTwo         String
+  pillarThree       String
+  weeklyCommitment  Int
+  internalManifesto Json?
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  couple            Couple   @relation(fields: [coupleId], references: [id], onDelete: Cascade)
+}
+
+model Habit {
+  id                  String           @id @default(uuid())
+  coupleId            String
+  ownerUserId         String?
+  title               String
+  category            HabitCategory
+  frequency           HabitFrequency
+  customFrequencyCron String?
+  weeklyTarget        Int
+  monthlyTarget       Int
+  yearlyTarget        Int
+  visibility          HabitVisibility
+  remindersEnabled    Boolean          @default(false)
+  isFocusOfDay        Boolean          @default(false)
+  archivedAt          DateTime?
+  createdAt           DateTime         @default(now())
+  updatedAt           DateTime         @updatedAt
+  couple              Couple           @relation(fields: [coupleId], references: [id], onDelete: Cascade)
+  owner               User?            @relation("HabitOwner", fields: [ownerUserId], references: [id], onDelete: SetNull)
+  completions         HabitCompletion[]
+  goals               Goal[]
+  userStreaks         UserStreak[]
+
+  @@index([coupleId, category])
+  @@index([ownerUserId])
+  @@index([isFocusOfDay])
+}
+
+model HabitCompletion {
+  id          String   @id @default(uuid())
+  habitId     String
+  userId      String
+  coupleId    String
+  completedAt DateTime
+  weekRef     String
+  monthRef    String
+  yearRef     Int
+  createdAt   DateTime @default(now())
+  habit       Habit    @relation(fields: [habitId], references: [id], onDelete: Cascade)
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  couple      Couple   @relation(fields: [coupleId], references: [id], onDelete: Cascade)
+
+  @@index([coupleId, completedAt])
+  @@index([userId, completedAt])
+  @@index([habitId, completedAt])
+}
+
+model Goal {
+  id          String     @id @default(uuid())
+  coupleId    String
+  ownerUserId String?
+  habitId     String?
+  title       String
+  description String?
+  scope       GoalScope
+  isShared    Boolean    @default(true)
+  target      Int
+  current     Int        @default(0)
+  dueDate     DateTime?
+  completedAt DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+  couple      Couple     @relation(fields: [coupleId], references: [id], onDelete: Cascade)
+  owner       User?      @relation("GoalOwner", fields: [ownerUserId], references: [id], onDelete: SetNull)
+  habit       Habit?     @relation(fields: [habitId], references: [id], onDelete: SetNull)
+
+  @@index([coupleId, scope, isShared])
+  @@index([completedAt])
+}
+
+model UserStreak {
+  id              String    @id @default(uuid())
+  userId          String
+  coupleId        String
+  habitId         String?
+  currentDays     Int       @default(0)
+  bestDays        Int       @default(0)
+  weeklyCount     Int       @default(0)
+  monthlyCount    Int       @default(0)
+  annualCount     Int       @default(0)
+  lastCompletedAt DateTime?
+  brokenAt        DateTime?
+  updatedAt       DateTime  @updatedAt
+  user            User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  couple          Couple    @relation(fields: [coupleId], references: [id], onDelete: Cascade)
+  habit           Habit?    @relation(fields: [habitId], references: [id], onDelete: SetNull)
+
+  @@index([userId, coupleId])
+  @@index([habitId, currentDays])
+}
+
+model CoupleStreak {
+  id              String    @id @default(uuid())
+  coupleId        String    @unique
+  currentDays     Int       @default(0)
+  bestDays        Int       @default(0)
+  weeklyCount     Int       @default(0)
+  monthlyCount    Int       @default(0)
+  annualCount     Int       @default(0)
+  perfectSyncDays Int       @default(0)
+  lastPerfectDate DateTime?
+  updatedAt       DateTime  @updatedAt
+  couple          Couple    @relation(fields: [coupleId], references: [id], onDelete: Cascade)
+}
+
+model StreakRecovery {
+  id              String   @id @default(uuid())
+  coupleId        String
+  userId          String
+  monthRef        String
+  usedRecoveries  Int      @default(0)
+  maxRecoveries   Int      @default(2)
+  updatedAt       DateTime @updatedAt
+  couple          Couple   @relation(fields: [coupleId], references: [id], onDelete: Cascade)
+  user            User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([coupleId, userId, monthRef])
+}
+
+model CoupleLevelProgress {
+  id               String      @id @default(uuid())
+  coupleId         String      @unique
+  currentLevel     CoupleLevel @default(INICIANTES)
+  disciplineScore  Int         @default(0)
+  lastUnlockedAt   DateTime?
+  updatedAt        DateTime    @updatedAt
+  couple           Couple      @relation(fields: [coupleId], references: [id], onDelete: Cascade)
+}
+
+model TreeState {
+  id                       String       @id @default(uuid())
+  coupleId                 String       @unique
+  rootPower                Int          @default(0)
+  branchGrowth             Int          @default(0)
+  flowerUnlocks            Int          @default(0)
+  activeSkin               String       @default("Foundation")
+  synchronizedRhythmActive Boolean      @default(false)
+  synchronizedDays         Int          @default(0)
+  backgroundEffectUntil    DateTime?
+  updatedAt                DateTime     @updatedAt
+  couple                   Couple       @relation(fields: [coupleId], references: [id], onDelete: Cascade)
+  unlocks                  TreeUnlock[]
+  equippedItems            StoreUnlock[]
+}
+
+model TreeUnlock {
+  id          String    @id @default(uuid())
+  coupleId    String
+  treeStateId String
+  key         String
+  requiredDays Int
+  unlockedAt  DateTime?
+  createdAt   DateTime  @default(now())
+  couple      Couple    @relation(fields: [coupleId], references: [id], onDelete: Cascade)
+  treeState   TreeState @relation(fields: [treeStateId], references: [id], onDelete: Cascade)
+
+  @@index([coupleId, key])
+}
+
+model StoreItem {
+  id                String            @id @default(uuid())
+  code              String            @unique
+  name              String
+  category          StoreItemCategory
+  requirementLabel  String
+  requiredScore     Int               @default(0)
+  requiredPerfectDays Int             @default(0)
+  metadata          Json?
+  active            Boolean           @default(true)
+  createdAt         DateTime          @default(now())
+  unlocks           StoreUnlock[]
+}
+
+model StoreUnlock {
+  id          String    @id @default(uuid())
+  coupleId    String
+  storeItemId String
+  treeStateId String?
+  unlockedAt  DateTime  @default(now())
+  equipped    Boolean   @default(false)
+  couple      Couple    @relation(fields: [coupleId], references: [id], onDelete: Cascade)
+  storeItem   StoreItem @relation(fields: [storeItemId], references: [id], onDelete: Cascade)
+  treeState   TreeState? @relation(fields: [treeStateId], references: [id], onDelete: SetNull)
+
+  @@unique([coupleId, storeItemId])
+  @@index([coupleId, unlockedAt])
+}
+
+model WeeklyCheckin {
+  id                   String    @id @default(uuid())
+  coupleId             String
+  weekRef              String
+  individualSummaryA   String
+  individualSummaryB   String
+  coupleSummary        String
+  improvements         String
+  failures             String
+  reflectiveQuestion   String
+  completedByUserId    String?
+  completedAt          DateTime?
+  createdAt            DateTime  @default(now())
+  updatedAt            DateTime  @updatedAt
+  couple               Couple    @relation(fields: [coupleId], references: [id], onDelete: Cascade)
+  completedByUser      User?     @relation("CheckinCompletedBy", fields: [completedByUserId], references: [id], onDelete: SetNull)
+
+  @@unique([coupleId, weekRef])
+  @@index([completedAt])
+}
+
+model AnalyticsSnapshot {
+  id                 String   @id @default(uuid())
+  coupleId           String
+  weekRef            String
+  consistencyScore   Int
+  healthScore        Int
+  productivityScore  Int
+  disciplineScore    Int
+  correlationMatrix  Json
+  generatedAt        DateTime @default(now())
+  couple             Couple   @relation(fields: [coupleId], references: [id], onDelete: Cascade)
+
+  @@unique([coupleId, weekRef])
+  @@index([generatedAt])
+}
+
+model Notification {
+  id           String           @id @default(uuid())
+  userId       String
+  coupleId     String
+  type         NotificationType
+  title        String
+  message      String
+  actionUrl    String?
+  readAt       DateTime?
+  scheduledFor DateTime?
+  createdAt    DateTime         @default(now())
+  user         User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  couple       Couple           @relation(fields: [coupleId], references: [id], onDelete: Cascade)
+
+  @@index([userId, readAt])
+  @@index([coupleId, type, createdAt])
+}
+
+model Event {
+  id          String    @id @default(uuid())
+  coupleId    String
+  actorUserId String?
+  type        EventType
+  payload     Json
+  createdAt   DateTime  @default(now())
+  couple      Couple    @relation(fields: [coupleId], references: [id], onDelete: Cascade)
+  actorUser   User?     @relation("EventActor", fields: [actorUserId], references: [id], onDelete: SetNull)
+
+  @@index([coupleId, createdAt])
+  @@index([type, createdAt])
+}
+
+model RefreshToken {
+  id            String    @id @default(uuid())
+  userId        String
+  tokenHash     String
+  expiresAt     DateTime
+  revokedAt     DateTime?
+  rotatedFromId String?
+  userAgent     String?
+  ipAddress     String?
+  createdAt     DateTime  @default(now())
+  user          User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  rotatedFrom   RefreshToken? @relation("TokenRotation", fields: [rotatedFromId], references: [id], onDelete: SetNull)
+  rotatedTo     RefreshToken[] @relation("TokenRotation")
+
+  @@index([userId, revokedAt, expiresAt])
+}
+
+model AuthAttempt {
+  id         String   @id @default(uuid())
+  userId     String?
+  email      String
+  ipAddress  String?
+  successful Boolean
+  createdAt  DateTime @default(now())
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([email, createdAt])
+  @@index([ipAddress, createdAt])
+}
+
+model AuditLog {
+  id         String   @id @default(uuid())
+  userId     String?
+  action     String
+  resource   String
+  method     String
+  path       String
+  ipAddress  String?
+  userAgent  String?
+  metadata   Json?
+  createdAt  DateTime @default(now())
+  user       User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+
+  @@index([userId, createdAt])
+  @@index([resource, createdAt])
+}
